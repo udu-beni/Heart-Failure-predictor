@@ -1,0 +1,116 @@
+{% extends 'headerPage.html' %}
+
+
+{% block content%}
+
+
+<h2 style="color: rgb(73, 125, 238);">Check risk of heart failure with this predictive model</h2>
+<h3 style="color: rgba(190, 80, 7, 0.418);">Please enter details </h3>
+<br>
+<div style="color:black; background-color:rgb(207, 243, 193);">
+    {% if Prediction %}
+    <form method="post" enctype="multipart/form-data" action="updateDataBase">
+        {% else %}
+        <form method="post" enctype="multipart/form-data" action="predictMPG">
+            {% endif%}
+            {% csrf_token %}
+
+            <div class="col-md-4 col-sm-4" >
+                <label for="fname">Gender (Female/Male = 0/1):</label>
+            </div>
+            <select style="width: 4.7cm; height: 0.7cm;" name="genderVal" type="number" value={{temp.gender}}>
+                <option>0</option>
+                <option>1</option>
+            </select><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="fname">Age:</label>
+            </div>
+            <input name="ageVal" type="number" required aria-required="true" value={{temp.age}} required=""><br><br>
+
+
+            <div class="col-md-4 col-sm-4">
+                <label for="fname">current Smoker? (No/Yes = 0/1):</label>
+            </div>
+            <select style="width: 4.7cm; height: 0.7cm;" type="number" id="fname" name="currentSmokerVal"
+                value={{temp.currentSmoker}}>
+                <option>0</option>
+                <option>1</option>
+            </select><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">cigarettes Per Day:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="cigsPerDayVal" value={{temp.cigsPerDay}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">Hypertensive? (No/Yes = 0/1):</label>
+            </div>
+            <select style="width: 4.7cm; height: 0.7cm;" type="number" id="lname" name="prevalentHypVal"
+                value={{temp.prevalentHyp}} >
+                <option>0</option>
+                <option>1</option>
+            </select><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="fname">Blood Cholesterol:</label>
+            </div>
+            <input type="number" id="fname" required aria-required="true" name="totCholVal" value={{temp.totChol}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">current systolic blood pressure:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="sysBPVal" value={{temp.sysBP}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">current diastolic blood pressure:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="diaBPVal" value={{temp.diaBP}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">Body Mass Index:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="BMIVal" value={{temp.BMI}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">Current Heart Rate:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="heartRateVal" value={{temp.heartRate}} required=""><br><br>
+
+            <div class="col-md-4 col-sm-4">
+                <label for="lname">Current Blood glucose:</label>
+            </div>
+            <input type="number" id="lname" required aria-required="true" name="glucoseVal" value={{temp.glucose}} required=""><br><br>
+            <br>
+
+</div><br>
+
+{% if Prediction %}
+
+<div>
+    <h1>Score: {{Prediction}}</h1>
+    {{scoreval}}
+    <h3>Do you want to save result in DataBase?</h3>
+    <input type="hidden" id="lname" name="predictVal" value={{Prediction}}>
+    <input type="submit" value="Submit">
+</div>
+
+<div class="container" style="margin-top: 200px">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% else%}
+<input type="submit" value="Submit"></div>
+{% endif %}
+<br>
+
+
+{% endblock %}

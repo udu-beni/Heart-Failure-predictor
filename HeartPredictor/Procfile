@@ -1,0 +1,1 @@
+web: gunicorn HeartPredictor.wsgi --log-file-
