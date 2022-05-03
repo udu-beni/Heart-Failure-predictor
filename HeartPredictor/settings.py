@@ -124,6 +124,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard_with_pivot'
@@ -134,6 +136,5 @@ LOGIN_REDIRECT_URL = 'dashboard_with_pivot'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())

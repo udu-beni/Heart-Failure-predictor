@@ -1,1 +1,1 @@
-web: gunicorn HeartPredictor.wsgi --log-file-
+web: gunicorn HeartPredictor.wsgi 
