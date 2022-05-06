@@ -21,7 +21,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def predictMPG(request):
+def predictHF(request):
     # print(request)
     if request.method == 'POST':
         # print(request.POST.dict())

@@ -8,7 +8,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('predictMPG',views.predictMPG, name='predictMPG'),
+    path('predictHF',views.predictHF, name='predictHF'),
     path('updateDataBase',views.updateDataBase, name='updateDataBase'),
     #path('viewDataBase/',views.viewDataBase, name='viewDataBase'),
     path('dashboard_with_pivot/', views.dashboard_with_pivot, name='dashboard_with_pivot'),

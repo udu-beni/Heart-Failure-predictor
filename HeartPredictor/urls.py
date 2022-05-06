@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('predictor/', include('predictor.urls')),
     path('', views.index, name='Homepage'),
-    path('predictMPG', views.predictMPG, name='predictMPG'),
+    path('predictHF', views.predictHF, name='predictHF'),
     path('updateDataBase', views.updateDataBase, name='updateDataBase'),
     
     path('dashboard_with_pivot/', views.dashboard_with_pivot, name='dashboard_with_pivot'),

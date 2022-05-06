@@ -11,7 +11,7 @@
     {% if Prediction %}
     <form method="post" enctype="multipart/form-data" action="updateDataBase">
         {% else %}
-        <form method="post" enctype="multipart/form-data" action="predictMPG">
+        <form method="post" enctype="multipart/form-data" action="predictHF">
             {% endif%}
             {% csrf_token %}
 
@@ -92,7 +92,7 @@
                 name="glucoseVal" value={{temp.glucose}} required=""><br><br>
 
             {% if Prediction %}
-            <div>
+            <div style="padding: 10px; border-style: double;">
                 <div class="container"
                     style="border: 5px;font-family: Verdana, Geneva, Tahoma, sans-serif;color: black;font-weight: bold;">
                     Score: {{Prediction}}
