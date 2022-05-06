@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from multiprocessing import context
+from django.shortcuts import redirect, render
 from .models import prediction_data
 from django.contrib import messages
 from django.core import serializers
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 
 # Create your views here.
 
@@ -38,10 +39,10 @@ def predictMPG(request):
         temp['glucose'] = request.POST.get("glucoseVal")
         print(temp)
     test_data = pd.DataFrame({'x': temp}).transpose()
-    scoreval = modelReload.predict(test_data)[0]
+    Prediction = modelReload.predict(test_data)[0]
     text1 = "Patient has a ten year risk of heart failure"
     text2 = "Congratulations! patient currently has no risk of heart failure "
-    if scoreval == 1:
+    if Prediction == 1:
         context = {'Prediction': text1, 'temp': temp}
     else:
         context = {'Prediction': text2, 'temp': temp}
@@ -61,6 +62,8 @@ def updateDataBase(request):
     data.bmi = request.POST.get("BMIVal")
     data.heartRate = request.POST.get("heartRateVal")
     data.glucose = request.POST.get("glucoseVal")
+    data.postcode = request.POST.get("postcode")
+    data.country = request.POST.get("country")
 
     text1 = "Patient has a ten year risk of heart failure"
 
@@ -68,12 +71,12 @@ def updateDataBase(request):
         data.prediction = 0
     else:
         data.prediction = 1
-
+    
     data.save()
     report = messages.success(request, "Data added successfully")
     context = {'report': report}
-    return render(request, 'index.html', context)
-
+    render(request, 'index.html', context)
+    return redirect('Homepage')
 
 
 

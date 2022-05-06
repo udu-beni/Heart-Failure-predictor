@@ -82,18 +82,18 @@ WSGI_APPLICATION = 'HeartPredictor.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'anthony1',
+        'USER': 'postgres',
+        'PASSWORD': '@Ehimare212',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
-db_from_env =dj_database_url.config()
+#db_from_env =dj_database_url.config()
 
-DATABASES['default']=db_from_env
+#DATABASES['default']=db_from_env
 
 
 # Password validation

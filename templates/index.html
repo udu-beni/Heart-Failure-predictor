@@ -3,9 +3,9 @@
 
 {% block content%}
 
-
+{{report}}
 <h2 style="color: rgb(73, 125, 238);">Check risk of heart failure with this predictive model</h2>
-<h3 style="color: rgba(190, 80, 7, 0.418);">Please enter details </h3>
+<h3 style="color: chocolate;">Please enter details </h3>
 <br>
 <div style="color:black; background-color:rgb(207, 243, 193);">
     {% if Prediction %}
@@ -15,7 +15,7 @@
             {% endif%}
             {% csrf_token %}
 
-            <div class="col-md-4 col-sm-4" >
+            <div class="col-md-4 col-sm-4">
                 <label for="fname">Gender (Female/Male = 0/1):</label>
             </div>
             <select style="width: 4.7cm; height: 0.7cm;" name="genderVal" type="number" value={{temp.gender}}>
@@ -26,11 +26,12 @@
             <div class="col-md-4 col-sm-4">
                 <label for="fname">Age:</label>
             </div>
-            <input name="ageVal" type="number" required aria-required="true" value={{temp.age}} required=""><br><br>
+            <input name="ageVal" type="number" min="0" step="0.01" required aria-required="true" value={{temp.age}}
+                required=""><br><br>
 
 
             <div class="col-md-4 col-sm-4">
-                <label for="fname">current Smoker? (No/Yes = 0/1):</label>
+                <label for="fname">Smoker? (No/Yes = 0/1):</label>
             </div>
             <select style="width: 4.7cm; height: 0.7cm;" type="number" id="fname" name="currentSmokerVal"
                 value={{temp.currentSmoker}}>
@@ -41,76 +42,89 @@
             <div class="col-md-4 col-sm-4">
                 <label for="lname">cigarettes Per Day:</label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="cigsPerDayVal" value={{temp.cigsPerDay}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="lname" required aria-required="true" name="cigsPerDayVal"
+                value={{temp.cigsPerDay}} required=""><br><br>
 
             <div class="col-md-4 col-sm-4">
                 <label for="lname">Hypertensive? (No/Yes = 0/1):</label>
             </div>
             <select style="width: 4.7cm; height: 0.7cm;" type="number" id="lname" name="prevalentHypVal"
-                value={{temp.prevalentHyp}} >
+                value={{temp.prevalentHyp}}>
                 <option>0</option>
                 <option>1</option>
             </select><br><br>
 
             <div class="col-md-4 col-sm-4">
-                <label for="fname">Blood Cholesterol:</label>
+                <label for="fname">Blood Cholesterol (normal range: < 200mg/dl)</label>
             </div>
-            <input type="number" id="fname" required aria-required="true" name="totCholVal" value={{temp.totChol}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="fname" placeholder="mg/dl" required aria-required="true"
+                name="totCholVal" value={{temp.totChol}} required=""><br><br>
 
             <div class="col-md-4 col-sm-4">
-                <label for="lname">current systolic blood pressure:</label>
+                <label for="lname">Systolic blood pressure (normal:< 120MmHg)</label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="sysBPVal" value={{temp.sysBP}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="lname" placeholder="MmHg" required aria-required="true"
+                name="sysBPVal" value={{temp.sysBP}} required=""><br><br>
 
             <div class="col-md-4 col-sm-4">
-                <label for="lname">current diastolic blood pressure:</label>
+                <label for="lname">Diastolic blood pressure (normal:< 80MmHg)</label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="diaBPVal" value={{temp.diaBP}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="lname" placeholder="MmHg" required aria-required="true"
+                name="diaBPVal" value={{temp.diaBP}} required=""><br><br>
 
             <div class="col-md-4 col-sm-4">
-                <label for="lname">Body Mass Index:</label>
+                <label for="lname">Body Mass Index (normal range: 18.5-24.9 kg/m2)</label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="BMIVal" value={{temp.BMI}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="lname" placeholder="kg/m2" required aria-required="true"
+                name="BMIVal" value={{temp.BMI}} required=""><br><br>
 
             <div class="col-md-4 col-sm-4">
-                <label for="lname">Current Heart Rate:</label>
+                <label for="lname">Heart Rate (normal:60-100bpm)</label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="heartRateVal" value={{temp.heartRate}} required=""><br><br>
+            <input type="number" min="0" step="0.01" id="lname" placeholder="BPM" required aria-required="true"
+                name="heartRateVal" value={{temp.heartRate}} required=""><br><br>
+
 
             <div class="col-md-4 col-sm-4">
-                <label for="lname">Current Blood glucose:</label>
+                <label for="lname">Blood glucose (normal: 72-99mg/dl fasting) </label>
             </div>
-            <input type="number" id="lname" required aria-required="true" name="glucoseVal" value={{temp.glucose}} required=""><br><br>
-            <br>
+            <input type="number" min="0" step="0.01" id="lname" placeholder="mg/dl" required aria-required="true"
+                name="glucoseVal" value={{temp.glucose}} required=""><br><br>
 
-</div><br>
+            {% if Prediction %}
+            <div>
+                <div class="container"
+                    style="border: 5px;font-family: Verdana, Geneva, Tahoma, sans-serif;color: black;font-weight: bold;">
+                    Score: {{Prediction}}
+                </div>
 
-{% if Prediction %}
+                <input type="hidden" id="lname" name="predictVal" value={{Prediction}}>
+                <br>
+                <div class="container"
+                    style="border: 2cm;font-family: Verdana, Geneva, Tahoma, sans-serif;color: chocolate;">
+                    This data helps in public health decision making,
+                    please enter postcode and country if you would like to contribute this data. <br>
+                    you can also submit your score without entering postcode and/or country.
+                </div>
+                <br>
+                <div class="col-md-4 col-sm-4">
+                    <label for="lname">Postcode</label>
+                </div>
+                <input type="text" id="lname" name="postcode" value={{temp.postcode}}><br><br>
+                <div class="col-md-4 col-sm-4">
+                    <label for="lname">Country</label>
+                </div>
+                <input type="text" id="lname" name="country" value={{temp.country}}> <br><br>
+                <div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                    <input type="button" onclick="window.location.href ='/';" value="Decline" class="btn btn-danger">
+                </div>
+            </div>
+            {% else%}
+            <input type="submit" value="submit" class="btn btn-primary">
+            {% endif %}
 
-<div>
-    <h1>Score: {{Prediction}}</h1>
-    {{scoreval}}
-    <h3>Do you want to save result in DataBase?</h3>
-    <input type="hidden" id="lname" name="predictVal" value={{Prediction}}>
-    <input type="submit" value="Submit">
+        </form>
+    </form>
 </div>
-
-<div class="container" style="margin-top: 200px">
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-
-{% else%}
-<input type="submit" value="Submit"></div>
-{% endif %}
-<br>
-
-
 {% endblock %}

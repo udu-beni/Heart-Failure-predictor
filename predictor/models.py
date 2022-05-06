@@ -4,6 +4,8 @@ from django.db import models
 
 
 class prediction_data(models.Model):
+    postcode = models.CharField(max_length=200, null=True, blank=True )
+    country = models.CharField(max_length=200,  null=True, blank=True)
     gender = models.CharField(max_length=200)
     age = models.CharField(max_length=200)
     cigsPerDay = models.CharField(max_length=200)
